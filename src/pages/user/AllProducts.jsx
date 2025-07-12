@@ -10,6 +10,7 @@ const AllProducts = () => {
   const fetchProducts = async () => {
     try {
       const response = await ProductServices.getProducts();
+      console.log(response)
       return response;
     } catch (error) {
       console.error("Error fetching products:", error);
