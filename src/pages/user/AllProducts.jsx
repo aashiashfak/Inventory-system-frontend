@@ -8,6 +8,8 @@ import {useNavigate} from "react-router-dom";
 const AllProducts = () => {
   const navigate = useNavigate();
   const fetchProducts = async () => {
+  
+
     try {
       const response = await ProductServices.getProducts();
       console.log(response)
@@ -23,7 +25,7 @@ const AllProducts = () => {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["Products"],
+    queryKey: ["products"],
     queryFn: fetchProducts,
     refetchOnWindowFocus: false,
   });
@@ -38,7 +40,7 @@ const AllProducts = () => {
         <div>
           <PageHeader title="All Products" link={{pathname: "/add-Product/"}} />
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {productsData?.length > 0 ? (
               productsData.map((product) => (
                 <ProductCard

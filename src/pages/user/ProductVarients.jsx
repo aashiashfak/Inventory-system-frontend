@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {useQuery} from "@tanstack/react-query";;
 import PageHeader from "@/components/pageHeader/pageHeader";
 import { productVarientServices } from "@/services/ProductVarientServices";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ProductVariantCard from "@/components/cards/ProductVarientCard";
 
 const ProductVarients = () => {
 
   const location = useLocation();
   const product = location.state?.product;
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if (!product) {
+      navigate('/products')
+    }
+  },[product])
   const fetchProductVarient = async () => {
     try {
       const response = await productVarientServices.getVarients(product.id);
@@ -43,7 +49,7 @@ const ProductVarients = () => {
             link={{pathname: "/add-Varients/"}}
           />
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {productVarients?.length > 0 ? (
               productVarients.map((variant) => (
                 <ProductVariantCard key={variant.id} variant={variant} />
