@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import AllProducts from "@/pages/user/AllProducts";
 import AddProduct from "@/pages/user/AddProduct";
 import ProductVarients from "@/pages/user/ProductVarients";
+import StockReportDashboard from "@/pages/user/StockReport";
 
 
 const UserRoutes = () => {
@@ -17,6 +18,7 @@ const UserRoutes = () => {
           <Route path="/products" element={<AllProducts />} />
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/product-variants" element={<ProductVarients />} />
+          <Route path="/stock-report" element={<StockReportDashboard />} />
         </Routes>
       </div>
     </>

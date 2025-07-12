@@ -8,4 +8,10 @@ export const stockService = {
     );
     return response.data;
   },
+  getStockReport: async (params) => {
+    const response = await instance.get("product/varient/stock-reports/", {
+      params,
+    });
+    return response.data;
+  },
 };
