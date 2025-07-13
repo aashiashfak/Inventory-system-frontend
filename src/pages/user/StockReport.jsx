@@ -14,6 +14,7 @@ import {Calendar} from "@/components/ui/calendar";
 import {Popover, PopoverTrigger, PopoverContent} from "@/components/ui/popover";
 import {format} from "date-fns";
 import StockReportTable from "@/components/table/StockReportTable";
+import ReportCard from "@/components/cards/ReportCard";
 // import StockReportTable from "./StockReportTable";
 
 const StockReportDashboard = () => {
@@ -44,42 +45,29 @@ const StockReportDashboard = () => {
     .reduce((sum, d) => sum + d.change_amount, 0);
   const totalSalesAmount = data
     .filter((d) => d.change_type === "sale")
-    .reduce((sum, d) => sum + parseFloat(d.price || 0), 0);
+    .reduce((sum, d) => sum + parseFloat(d.price || 0), 0)
+    .toFixed(2);
   const salesData = data.filter((d) => d.change_type === "sale");
   console.log("salesData", salesData);
+
+   
 
   return (
     <div className="p-6 space-y-6">
       {/* Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>Total Purchases</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{purchaseCount}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Total Sales</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{saleCount}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Total Sale Qty</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{totalSalesAmount}</p>
-          </CardContent>
-        </Card>
+      <div className="flex justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 ">
+          <ReportCard tilte="Total Purchases" value={purchaseCount} />
+          <ReportCard tilte="Total Sales" value={saleCount} />
+          <ReportCard
+            tilte="Total Sale Price"
+            value={`₹ ${totalSalesAmount}`}
+          />
+        </div>
       </div>
 
       {/* Date */}
-      <div className="flex flex-wrap items-end gap-4">
+      <div className="flex flex-wrap justify-center gap-4">
         {/* Start Date */}
         <div className="space-y-1">
           <label className="block text-sm font-medium">Start Date</label>
@@ -146,7 +134,8 @@ const StockReportDashboard = () => {
             </SelectContent>
           </Select>
         </div>
-
+      </div>
+      <div className="flex justify-center">
         <Button
           variant="outline"
           onClick={() => {

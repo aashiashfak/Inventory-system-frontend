@@ -9,9 +9,25 @@ import {
 } from "@/components/ui/table";
 import {format} from "date-fns";
 
-const StockReportTable = ({reports = [], isLo}) => {
+const StockReportTable = ({reports = [], loading}) => {
+    if (loading) {
+      return (
+        <div className="flex justify-center items-center min-h-[200px]">
+          <div className="animate-spin rounded-full h-8 w-8 border-4 border-primary border-t-transparent" />
+        </div>
+      );
+    }
+
+    if (!reports.length) {
+      return (
+        <div className="text-center text-muted-foreground mt-4">
+          No stock reports found for the selected filters.
+        </div>
+      );
+    }
   return (
     <div className="overflow-x-auto">
+       
       <Table>
         <TableCaption>list of stock transactions.</TableCaption>
         <TableHeader>

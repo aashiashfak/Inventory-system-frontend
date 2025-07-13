@@ -66,7 +66,6 @@ const schema = Yup.object().shape({
             .join("|");
           if (seen.has(combo)) {
             console.log("Duplicate variant combo found:", combo);
-            // Attach error to the array path so RHF sees it in errors.variants.message
             return this.createError({path: this.path, message: this.message});
           }
           seen.add(combo);
@@ -164,7 +163,7 @@ const ProductForm = () => {
       if (error.response && error.response.data) {
         const backendErrors = error.response.data;
 
-        // Set backend errors into RHF
+        // Set backend errors into RHF 
         Object.entries(backendErrors).forEach(([field, messages]) => {
           const msg = Array.isArray(messages) ? messages.join(" ") : messages;
           setError(field, {type: "manual", message: msg});
@@ -174,9 +173,6 @@ const ProductForm = () => {
     }
   };
 
-  const productImageWatch = watch("ProductImage");
-  const variantsWatch = watch("variants");
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onerror)}
@@ -184,7 +180,8 @@ const ProductForm = () => {
     >
       <BackButton handleBackClick={() => navigate(-1)} />
       <h2 className="text-2xl font-bold text-center">Create Product</h2>
-      {/* Basic Fields */}
+
+      {/* Product Fields */}
       <Label className="mb-2">Product ID</Label>
       <Input type="number" {...register("ProductID")} />
       {errors.ProductID && (
@@ -283,7 +280,8 @@ const ProductForm = () => {
               {errors.variants[vIdx].image.message}
             </p>
           )}
-
+        
+          {/* Varient Options */}
           <h4 className="font-medium mt-4">Options</h4>
           <Controller
             control={control}
@@ -332,7 +330,6 @@ const ProductForm = () => {
                           </Button>
                         )}
                       </div>
-                      {/* Show individual field errors */}
                       {variantErrors.variant_type && (
                         <p className="text-sm text-red-500">
                           {variantErrors.variant_type.message}
@@ -362,7 +359,6 @@ const ProductForm = () => {
                   + Option
                 </Button>
 
-                {/* Array-level error (e.g., min one option or duplicate) */}
                 {typeof errors.variants?.[vIdx]?.option_data?.message ===
                   "string" && (
                   <p className="text-sm text-red-500 mt-2">
@@ -386,7 +382,6 @@ const ProductForm = () => {
         </div>
       ))}
 
-      {/* Move array-level variants error display here */}
       {errors.variants?.root?.message && (
         <p className="text-sm text-red-500 mt-2">
           {errors.variants.root.message}
