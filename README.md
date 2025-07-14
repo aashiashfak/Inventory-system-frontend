@@ -1,12 +1,36 @@
-# React + Vite
+# 🏷️ Inventory System – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web-based inventory management system built with **React** to manage products with multiple variants and provide insightful stock analysis — including purchase and sale tracking per variant.
 
-Currently, two official plugins are available:
+This is the **frontend** of the Inventory System, built for speed, usability, and developer experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 📦 **Product & Variant Management** – Add and edit products with multiple variants (like size, color).
+- 📊 **Stock Reports** – Visualize purchase and sale stats for each variant.
+- 🔒 **Authentication** – Login/Signup functionality with JWT-based token handling.
+- 📥 **Form Handling** – Clean and accessible forms using React Hook Form + Yup validation.
+- 🔍 **Interactive UI** – Built with Tailwind CSS and shadcn/ui for modern, responsive design.
+- 🧠 **Redux** – Store user data.
+- 🔔 **Toast Notifications** – for toast notifaication `sonner`.
+
+---
+
+## 🧰 Tech Stack
+
+| Technology         | Purpose                                 |
+|--------------------|------------------------------------------|
+| **React (Vite)**   | Frontend framework                       |
+| **Tailwind CSS**   | Utility-first CSS framework              |
+| **shadcn/ui**      | Beautiful pre-built UI components        |
+| **React Hook Form**| Efficient form management                |
+| **Yup**            | Form validation schema                   |
+| **Axios**          | API interaction                          |
+| **Redux)**         | stores User data                         |
+| **Sonner**         | Elegant toast notifications              |
+
+
+
+
