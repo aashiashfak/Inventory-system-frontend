@@ -1,18 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {ProductServices} from "@/services/productServices";
 import ProductCard from "@/components/cards/ProductCard";
 import PageHeader from "@/components/pageHeader/pageHeader";
 import {useNavigate} from "react-router-dom";
+import PaginationButtons from "@/components/buttons/PaginationButtons";
 
 const AllProducts = () => {
   const navigate = useNavigate();
-  const fetchProducts = async () => {
-  
+  const [currentPage, setCurrentPage] = useState(1);
 
+  const fetchProducts = async () => {
     try {
-      const response = await ProductServices.getProducts();
-      console.log(response)
+      const params = {page: currentPage};
+      const response = await ProductServices.getProducts(params);
+      console.log(response);
       return response;
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -25,13 +27,22 @@ const AllProducts = () => {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["products", currentPage],
     queryFn: fetchProducts,
     refetchOnWindowFocus: false,
   });
 
+  const totalProducts = productsData?.count || 0;
+  const totalPages = Math.ceil(totalProducts / 4);
+
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
   return (
-    <div className="px-4 py-6 lg:px-12 lg:py-12">
+    <div className="px-4 pt-6 pb-20 lg:px-12 lg:py-12">
       {isLoading ? (
         <div className="flex justify-center items-center min-h-screen">
           <div className="animate-spin rounded-full h-10 w-10 border-4 border-primary border-t-transparent" />
@@ -41,8 +52,8 @@ const AllProducts = () => {
           <PageHeader title="All Products" link={{pathname: "/add-Product/"}} />
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {productsData?.length > 0 ? (
-              productsData.map((product) => (
+            {productsData?.results?.length > 0 ? (
+              productsData.results.map((product) => (
                 <ProductCard
                   onClick={() =>
                     navigate("/product-variants", {
@@ -59,6 +70,14 @@ const AllProducts = () => {
               </div>
             )}
           </div>
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <PaginationButtons
+              handlePageChange={handlePageChange}
+              currentPage={currentPage}
+              totalPages={totalPages}
+            />
+          )}
         </div>
       )}
     </div>

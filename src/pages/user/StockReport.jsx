@@ -18,7 +18,7 @@ import ReportCard from "@/components/cards/ReportCard";
 // import StockReportTable from "./StockReportTable";
 
 const StockReportDashboard = () => {
-  const [startDate, setStartDate] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState("");
   const [changeType, setChangeType] = useState("");
 

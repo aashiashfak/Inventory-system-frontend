@@ -152,8 +152,9 @@ const ProductForm = () => {
 
     try {
       const response = await ProductServices.createProduct(formData);
+      console.log("product create success response ", response);
       showToast(
-        `Product ${response.ProductName} created successfully`,
+        `Product created successfully`,
         "success"
       );
       reset();

@@ -10,6 +10,14 @@ import {
 import {format} from "date-fns";
 
 const StockReportTable = ({reports = [], loading}) => {
+
+    if (reports.length > 0) {
+      console.log(
+        reports.map((report) => {
+          return format(new Date(report.timestamp), "dd MMM yyyy, hh:mm a");
+        })
+      );
+    }
     if (loading) {
       return (
         <div className="flex justify-center items-center min-h-[200px]">

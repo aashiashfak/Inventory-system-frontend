@@ -1,8 +1,36 @@
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Badge} from "@/components/ui/badge";
 
 const ProductCard = ({product, onClick}) => {
+  const stockRef = useRef(null);
+  const [displayStock, setDisplayStock] = useState(
+    parseInt(product.TotalStock)
+  );
+  const previousStock = useRef(displayStock);
+
+  useEffect(() => {
+    const targetStock = parseInt(product.TotalStock);
+    const start = previousStock.current;
+    const end = targetStock;
+    const duration = 1000;
+    const startTime = performance.now();
+
+    const animate = (time) => {
+      const progress = Math.min((time - startTime) / duration, 1);
+      const value = Math.round(start + (end - start) * progress);
+      setDisplayStock(value);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        previousStock.current = targetStock;
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [product.TotalStock]);
+
   return (
     <Card
       onClick={onClick}
@@ -36,11 +64,12 @@ const ProductCard = ({product, onClick}) => {
         <div className="text-sm text-gray-500">
           Stock:{" "}
           <span
+            ref={stockRef}
             className={
               product.TotalStock > 0 ? "text-green-600" : "text-red-500"
             }
           >
-            {parseInt(product.TotalStock)}
+            {displayStock}
           </span>
         </div>
       </CardContent>
