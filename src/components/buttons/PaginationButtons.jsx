@@ -1,5 +1,5 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import React from 'react'
+import {ChevronLeft, ChevronRight} from "lucide-react";
+import React from "react";
 
 const PaginationButtons = ({handlePageChange, currentPage, totalPages}) => {
   return (
@@ -31,4 +31,4 @@ const PaginationButtons = ({handlePageChange, currentPage, totalPages}) => {
   );
 };
 
-export default PaginationButtons
+export default PaginationButtons;

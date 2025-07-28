@@ -29,7 +29,7 @@ instance.interceptors.request.use(
     // Get access token and check if a user is logged in
     const state = store.getState();
     const isAuthenticated = state.userAuth.isAuthenticated;
-    const accessToken = state.userAuth.accessToken; // 🔹 Fetch access token from Redux store
+    const accessToken = state.userAuth.accessToken; //  Fetch access token from Redux store
 
     console.log("User logged in:", isAuthenticated);
 
